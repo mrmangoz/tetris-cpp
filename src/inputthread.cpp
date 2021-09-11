@@ -1,5 +1,5 @@
 #include <grid.hpp>
-#include <checkInput.hpp>
+#include <inputthread.hpp>
 
 #include <stdio.h>
 #include <atomic>
