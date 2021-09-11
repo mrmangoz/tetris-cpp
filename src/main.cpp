@@ -4,10 +4,11 @@
 #include <termios.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <grid.hpp>
 #include <ncurses.h>
 #include <thread>
 #include <atomic>
+
+#include <grid.hpp>
 #include <thread.hpp>
 using namespace std;
 
@@ -21,14 +22,15 @@ using namespace std;
 //     return output;
     
 // }
+
 atomic_bool done(false);
 
 
 
 
-
 int main() {
-    
+    //atomic_bool done;
+    //done = false;
     cout << "testing threads" << endl;
     //runGame();
     thread t (checkInput, ref(done));

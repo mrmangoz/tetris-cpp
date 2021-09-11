@@ -5,10 +5,10 @@ HDIR = include
 SRCDIR = src
 CCFLAGS = $(HDIR) -Wall -g -lncurses -pthread
 
-OBJECTFILES = main.o grid.o
+OBJECTFILES = main.o grid.o threads.o
 OBJS = $(patsubst %,$(ODIR)/%,$(OBJECTFILES))
 
-HFILES = grid.hpp thread.hpp
+HFILES = grid.hpp thread.hpp 
 DEPS = $(patsubst %,$(HDIR)/%,$(HFILES))
 
 

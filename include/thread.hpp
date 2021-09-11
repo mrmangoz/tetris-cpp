@@ -3,7 +3,7 @@
 #include <atomic>
 using namespace std;
 
-void checkInput(atomic<bool>);
+void checkInput(atomic_bool &done);
 char getKey();
 
 #endif

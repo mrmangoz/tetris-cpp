@@ -5,7 +5,7 @@
 #include <termios.h>
 using namespace std;
 
-void checkInput(atomic_bool& done) {
+void checkInput(atomic_bool &done) {
     while (!done) {
         int input = getKey();
         if (input == 113) {
