@@ -7,10 +7,13 @@
 #include <ncurses.h>
 #include <thread>
 #include <atomic>
+#include <chrono>
 
 #include <grid.hpp>
-#include <thread.hpp>
+//#include <thread.hpp>
+#include <checkInput.hpp>
 using namespace std;
+
 
 // string createTemplate() {
 //     string header_footer = "***********\n";
@@ -29,43 +32,23 @@ atomic_bool done(false);
 
 
 int main() {
-    //atomic_bool done;
-    //done = false;
+    const int tick = 100;
+    atomic_bool * boolPointer;
+    boolPointer = &done;
+    Grid grid (20, 10);
+    Grid * gridPointer;
+    gridPointer = &grid;
     cout << "testing threads" << endl;
-    //runGame();
-    thread t (checkInput, ref(done));
+    InputThread * itp = new InputThread(gridPointer, boolPointer);
+    InputThread it (gridPointer, boolPointer);
+    thread t (&InputThread::checkInput, itp);
     t.detach();
+    system("clear");
     while (!done) {
-        //system("stty cooked");
-        cout << "test" << endl;
-        
-        sleep(1);
+        grid.printGrid();
+        this_thread::sleep_for(chrono::milliseconds(tick));
+        system("clear");
     }
-    //string in;
-    //cin >> in;
-    //int ch;
-    //system("stty raw");
-    
-    //system("clear");
-
-    
-    // int ch;
-    // initscr();
-    // raw();
-    // bool done = false;
-    // Grid grid (20, 10);
-    // while (!done) {
-    //     ch = getch();
-    //     printw("test\n");
-    //     refresh();
-    //     if (ch == 113) {
-    //         done = true;
-    //     }
-    // }
-    // grid.printGrid();
-    // refresh();
-    // endwin();
-
     return 0;
   
 }

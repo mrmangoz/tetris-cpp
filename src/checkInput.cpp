@@ -1,21 +1,42 @@
-#include <thread.hpp>
+#include <grid.hpp>
+#include <checkInput.hpp>
+
 #include <stdio.h>
 #include <atomic>
 #include <unistd.h>
 #include <termios.h>
+
+
+
+
+
 using namespace std;
 
-void checkInput(atomic_bool &done) {
-    while (!done) {
-        int input = getKey();
-        if (input == 113) {
-            done = true;
-        }
-    }
-    
+
+InputThread::InputThread(Grid * g, atomic_bool * d){
+        done = d;
+        grid = g; 
+        //checkInput();      
 }
 
-char getKey() {
+void InputThread::updateRowCount() {
+    ++rowCount;
+}
+void InputThread::checkInput() {
+    while (!*done) {
+        int input = getKey();
+        if (input == 113) {
+            *done = true;
+        }
+        if (input == 100) {
+            grid->updateGrid(rowCount,0);
+            updateRowCount();
+        }
+    }
+}
+
+
+char InputThread::getKey() {
         // code from https://stackoverflow.com/questions/421860/capture-characters-from-standard-input-without-waiting-for-enter-to-be-pressed
         char buf = 0;
         struct termios old = {0};

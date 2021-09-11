@@ -35,14 +35,9 @@ void Grid::printGrid() {
     
     for (int r=0; r<height; ++r) {
         for (int c=0; c<width; ++c) {
-            //cout << arr[r][c];
-            //printw("%d", arr[r][c]);
-            printw("0");
-            //cout << 0;
-            
+            cout << arr[r][c];
         }
-        printw("\n");
-        //cout << endl;
+        cout << endl;
     } 
    
 }
