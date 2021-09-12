@@ -16,8 +16,8 @@ $(ODIR)/%.o: $(SRCDIR)/%.cpp $(DEPS)
 	$(CC) -c -o $@ $< -I $(CCFLAGS)
 
 default: $(OBJS)
-	$(CC) -o runnable $^ -I $(CCFLAGS)
-	./runnable
+	$(CC) -o runnable.exe $^ -I $(CCFLAGS)
+	./runnable.exe
 
 .PHONY: clean
 
