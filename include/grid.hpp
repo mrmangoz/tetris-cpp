@@ -16,6 +16,8 @@ class Grid {
         void updateDown();
         void updateLeft();
         void updateRight();
+        void updateRCW();
+        void updateRACW();
     public:
         Grid(atomic_bool *);
         int getWidth();

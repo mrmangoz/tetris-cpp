@@ -58,6 +58,10 @@ void Grid::updateGrid(int check) {
         updateLeft();
     } else if (check == 3) {
         updateRight();
+    } else if (check == 4) {
+        updateRCW();
+    } else if (check == 5) {
+        updateRACW();
     }
 }
 void Grid::updateDown() {
@@ -113,6 +117,31 @@ void Grid::updateRight() {
                 arr[b[0]][b[1] - i] = abs(1-i);    
             }
         } 
+    }
+}
+
+void Grid::updateRCW() {
+    for (vector<int> b: tetromino->getCoords()) {
+        arr[b[0]][b[1]] = 0;    
+    }
+
+    tetromino->rotateCW();
+    
+    for (vector<int> b: tetromino->getCoords()) {
+        arr[b[0]][b[1]] = 1;    
+    }
+    
+}
+
+void Grid::updateRACW() {
+    for (vector<int> b: tetromino->getCoords()) {
+        arr[b[0]][b[1]] = 0;    
+    }
+
+    tetromino->rotateACW();
+    
+    for (vector<int> b: tetromino->getCoords()) {
+        arr[b[0]][b[1]] = 1;    
     }
 }
 

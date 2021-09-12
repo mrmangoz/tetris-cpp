@@ -32,6 +32,8 @@ class Tetromino {
         void moveRight();
         void setType(string);
         string toString();
+        void rotateCW();
+        void rotateACW();
 };  
 
 #endif

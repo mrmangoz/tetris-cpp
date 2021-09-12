@@ -36,6 +36,15 @@ void InputThread::checkInput() {
             grid->updateGrid(3);
             grid->printGrid();
         }
+        if (input == 120) {
+           // rotate clockwise
+           grid->updateGrid(4);
+           grid->printGrid();
+        }
+        if (input == 122) {
+           grid->updateGrid(5);
+           grid->printGrid();
+        }
     }
 }
 

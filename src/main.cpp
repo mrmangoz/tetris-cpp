@@ -32,9 +32,6 @@ using namespace std;
 
 atomic_bool done(false);
 
-
-
-
 int main() {
     Tetromino tetromino ("Z");
     Tetromino * tetrominoPointer;
@@ -56,10 +53,9 @@ int main() {
 
     thread t (&InputThread::checkInput, inputThreadPointer);
     t.detach();
-    //system("clear");
-    //grid.printGrid();
+
     while (!done) {
-        grid.updateGrid(1);
+        //grid.updateGrid(1);
         grid.printGrid();
         this_thread::sleep_for(chrono::milliseconds(tick));
     }
