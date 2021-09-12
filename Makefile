@@ -3,7 +3,7 @@ CC = g++
 ODIR = src/obj
 HDIR = include
 SRCDIR = src
-CCFLAGS = $(HDIR) -Wall -g -lncurses -pthread
+CCFLAGS = $(HDIR) -Wall -g -pthread
 
 OBJECTFILES = main.o grid.o inputthread.o tetromino.o
 OBJS = $(patsubst %,$(ODIR)/%,$(OBJECTFILES))

@@ -16,5 +16,4 @@ class InputThread {
         void updateRowCount();
 };
 
-
 #endif

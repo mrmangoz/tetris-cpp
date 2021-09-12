@@ -1,19 +1,21 @@
 #include <iostream>
 #include <stdio.h>
-#include <string>
 #include <termios.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <ncurses.h>
+
 #include <thread>
 #include <atomic>
 #include <chrono>
+
+#include <string>
 #include <map>
-#include <grid.hpp>
 #include <vector>
-//#include <thread.hpp>
+
+#include <grid.hpp>
 #include <inputthread.hpp>
 #include <tetromino.hpp>
+
 using namespace std;
 
 
@@ -34,51 +36,33 @@ atomic_bool done(false);
 
 
 int main() {
-    //vector<int> v = {1, 2};
-    // vector<vector<int>> v = {{1, 2}, {3, 4}};
-    // for (vector<int> i: v) {
-    //     for (int j: i) {
-    //         cout << j;
-    //     }
-    //     cout << endl;
-    // }
-    Tetromino tetromino ("J");
-    //Tetromino * tp;
-    //tp = &tetromino;
-    const int tick = 1000;
+    Tetromino tetromino ("Z");
+    const int tick = 100;
     atomic_bool * boolPointer;
     boolPointer = &done;
 
-    Grid grid (20, 10);
+    Grid grid(boolPointer);
+    grid.updateTetromino(tetromino);
     Grid * gridPointer;
     gridPointer = &grid;
 
     InputThread * itp = new InputThread(gridPointer, boolPointer);
-    //InputThread it (gridPointer, boolPointer);
+    InputThread it (gridPointer, boolPointer);
+
+    thread t (&InputThread::checkInput, itp);
+    t.detach();
 
     
-    //thread t (&Tetromino::moveDown, tp);
-    //thread t (&InputThread::checkInput, itp);
-    //t.detach();
-
-    //system("clear");
-    //cout << tetromino.toString();
-    // cout << tetromino.toString() << endl;
-    // tetromino.moveDown();
-    // cout << tetromino.toString() << endl;
+    
     while (!done) {
-        //grid.printGrid();
-        cout << tetromino.toString();
-        cout << endl;
+        system("clear");
+        grid.updateGrid();
+        grid.printGrid();
+        grid.tetromino.moveDown();
         this_thread::sleep_for(chrono::milliseconds(tick));
-        tetromino.moveDown();
-        
-        
-        //t::sleep_for(chrono::milliseconds(tick));
-        //this_thread::sleep_for(chrono::milliseconds(tick));
-        //system("clear");
     }
-    
+    cout <<"ended\n";
+    system("stty echo");
     return 0;
   
 }
