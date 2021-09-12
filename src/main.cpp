@@ -55,7 +55,7 @@ int main() {
     t.detach();
 
     while (!done) {
-        //grid.updateGrid(1);
+        grid.updateGrid(1);
         grid.printGrid();
         this_thread::sleep_for(chrono::milliseconds(tick));
     }
