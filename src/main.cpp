@@ -37,28 +37,30 @@ atomic_bool done(false);
 
 int main() {
     Tetromino tetromino ("Z");
-    const int tick = 100;
+    Tetromino * tetrominoPointer;
+    tetrominoPointer = &tetromino;
+
+    const int tick = 1000;
     atomic_bool * boolPointer;
     boolPointer = &done;
 
     Grid grid(boolPointer);
-    grid.updateTetromino(tetromino);
+    grid.updateTetromino(tetrominoPointer);
     Grid * gridPointer;
     gridPointer = &grid;
 
-    InputThread * itp = new InputThread(gridPointer, boolPointer);
-    InputThread it (gridPointer, boolPointer);
+    InputThread inputThread (gridPointer, boolPointer, tetrominoPointer);
+    InputThread * inputThreadPointer; 
+    inputThreadPointer = &inputThread;
+    
 
-    thread t (&InputThread::checkInput, itp);
+    thread t (&InputThread::checkInput, inputThreadPointer);
     t.detach();
-
-    
-    
+    //system("clear");
+    //grid.printGrid();
     while (!done) {
-        system("clear");
-        grid.updateGrid();
+        grid.updateGrid(1);
         grid.printGrid();
-        grid.tetromino.moveDown();
         this_thread::sleep_for(chrono::milliseconds(tick));
     }
     cout <<"ended\n";

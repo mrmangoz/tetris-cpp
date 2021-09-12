@@ -1,6 +1,7 @@
 #include <grid.hpp>
 #include <inputthread.hpp>
 
+#include <iostream>
 #include <stdio.h>
 #include <atomic>
 #include <unistd.h>
@@ -8,9 +9,10 @@
 
 using namespace std;
 
-InputThread::InputThread(Grid * g, atomic_bool * d){
+InputThread::InputThread(Grid * g, atomic_bool * d, Tetromino * t){
         done = d;
-        grid = g;     
+        grid = g; 
+        tetromino = t;   
 }
 
 void InputThread::updateRowCount() {
@@ -20,13 +22,20 @@ void InputThread::updateRowCount() {
 void InputThread::checkInput() {
     while (!*done) {
         int input = getKey();
+
         if (input == 113) {
             *done = true;
         }
-        // if (input == 100) {
-        //     grid->updateGrid(rowCount,0);
-        //     updateRowCount();
-        // }
+        if (input == 110) {
+            // move left
+            grid->updateGrid(2);
+            grid->printGrid();
+        }
+        if (input == 109) {
+            // move right
+            grid->updateGrid(3);
+            grid->printGrid();
+        }
     }
 }
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <vector>
+
 using namespace std;
 
 class Tetromino {
@@ -27,6 +28,8 @@ class Tetromino {
         Tetromino();
         vector<vector<int>> getCoords();
         void moveDown();
+        void moveLeft();
+        void moveRight();
         void setType(string);
         string toString();
 };  

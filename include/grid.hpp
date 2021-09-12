@@ -3,6 +3,7 @@
 
 #include <tetromino.hpp>
 #include <atomic>
+
 class Grid {
     private:
         int width = 12;
@@ -11,17 +12,19 @@ class Grid {
         atomic_bool * done;
         const int maxH = height - 1;
         const int maxW = width - 1;
+        const int minW = 0;
+        void updateDown();
+        void updateLeft();
+        void updateRight();
     public:
         Grid(atomic_bool *);
         int getWidth();
         int getHeight();
         void initArray();
         void printGrid();
-        void updateGrid();
-        void updateTetromino(Tetromino);
-        Tetromino tetromino;
-        //void setType(string);
+        void updateGrid(int check);
+        void updateTetromino(Tetromino *);
+        Tetromino * tetromino;
 };
-
 
 #endif
