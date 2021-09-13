@@ -4,7 +4,7 @@ text based console tetris clone
 
 run make to build
 
-controls:
+controls: <br>
           press q to quit the game
           press m to move right
           press n to move left
