@@ -43,14 +43,25 @@ void Grid::initArray() {
 
 void Grid::printGrid() {
     system("clear");
-
+    string out = "";
     for (int r=0; r<height; ++r) {
         for (int c=0; c<width; ++c) {
-            cout << arr[r][c];
+            //cout << arr[r][c];
+            if (r == minH || r == maxH || c == minW || c == maxW) {
+                out += "*";
+            } else if (arr[r][c] == 0) {
+                out += " ";
+            } else {
+                out += "#"; //to_string(arr[r][c]);
+            }
+            
         }
-        cout << endl;
+        //cout << endl;
+        out += "\n";
     } 
+    cout << out;
 }
+
 void Grid::updateGrid(int check) {
     if (check == 1) {
         updateDown();
@@ -59,11 +70,12 @@ void Grid::updateGrid(int check) {
     } else if (check == 3) {
         updateRight();
     } else if (check == 4) {
-        updateRCW();
+        updateRotate(1, -1);
     } else if (check == 5) {
-        updateRACW();
+        updateRotate(-1, 1);
     }
 }
+
 void Grid::updateDown() {
     tetromino->moveDown();
 
@@ -81,17 +93,8 @@ void Grid::updateDown() {
 }
 
 void Grid::updateLeft(){
-    bool move = true;
-    for (int j=0; j<4; ++j) {
-        if ((tetromino->getCoords()[j][1] - 1) == minW) {
-            move = false;
-            break;
-        } else {
-            move = true;
-        }
-    }
-    if (move) {
-        tetromino->moveLeft();
+    
+    if (tetromino->moveLeft()) {
         for (int i = 1; i >=0; --i) {
             for (vector<int> b: tetromino->getCoords()) {
                 arr[b[0]][b[1] + i] = abs(1-i);    
@@ -101,17 +104,7 @@ void Grid::updateLeft(){
 }
 
 void Grid::updateRight() {
-    bool move = true;
-    for (int j=0; j<4; ++j) {
-        if ((tetromino->getCoords()[j][1] + 1) == maxW) {
-            move = false;
-            break;
-        } else {
-            move = true;
-        }
-    }
-    if (move) {
-        tetromino->moveRight();
+    if (tetromino->moveRight()) {
         for (int i = 1; i >=0; --i) {
             for (vector<int> b: tetromino->getCoords()) {
                 arr[b[0]][b[1] - i] = abs(1-i);    
@@ -120,29 +113,17 @@ void Grid::updateRight() {
     }
 }
 
-void Grid::updateRCW() {
+void Grid::updateRotate(int rx, int ry) {
     for (vector<int> b: tetromino->getCoords()) {
         arr[b[0]][b[1]] = 0;    
     }
 
-    tetromino->rotateCW();
-    
-    for (vector<int> b: tetromino->getCoords()) {
-        arr[b[0]][b[1]] = 1;    
-    }
-    
-}
-
-void Grid::updateRACW() {
-    for (vector<int> b: tetromino->getCoords()) {
-        arr[b[0]][b[1]] = 0;    
-    }
-
-    tetromino->rotateACW();
+    tetromino->rotate(rx, ry);
     
     for (vector<int> b: tetromino->getCoords()) {
         arr[b[0]][b[1]] = 1;    
     }
 }
+
 
 

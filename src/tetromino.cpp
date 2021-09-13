@@ -33,23 +33,43 @@ void Tetromino::moveDown() {
     }
 }
 
-void Tetromino::moveLeft() {
+bool Tetromino::checkMove(int rl, const int minMax) {
+    for (int j=0; j<4; ++j) {
+        if ((getCoords()[j][1] + rl) == minMax) {
+            
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Tetromino::moveLeft() {
+    if (!checkMove(-1, minW)) {
+        return false;
+    }
     for (vector<int> &b: coords) {
         --b[1];
     }
+    return true;
 }
 
-void Tetromino::moveRight() {
+bool Tetromino::moveRight() {
+    if (!checkMove(1, maxW)) {
+        return false;
+    }
     for (vector<int> &b: coords) {
         ++b[1];
     }
+    return true;
 }
 
 void Tetromino::setType(string t) {
     type = t;
 }
 
-void Tetromino::rotateCW() {
+void Tetromino::rotate(int rx, int ry) {
+    // CW  rx =  1, ry = -1
+    // ACW rx = -1, ry =  1
     vector<vector<int>> tempCoords = coords;
     int h_x = tempCoords[2][1];
     int h_y = tempCoords[2][0];
@@ -59,31 +79,14 @@ void Tetromino::rotateCW() {
         x -= h_x;
         y -= h_y;
         int swap = y;
-        y = x;
-        x = -swap;
+        y = rx * x;
+        x = ry * swap;
         b[0] = y + h_y ;
         b[1] = x + h_x;
     }
     coords = tempCoords;
 }
 
-void Tetromino::rotateACW() {
-    vector<vector<int>> tempCoords = coords;
-    int h_x = tempCoords[2][1];
-    int h_y = tempCoords[2][0];
-    for (vector<int> &b: tempCoords) {
-        int x = b[1];
-        int y = b[0];
-        x -= h_x;
-        y -= h_y;
-        int swap = y;
-        y = -x;
-        x = swap;
-        b[0] = y + h_y ;
-        b[1] = x + h_x;
-    }
-    coords = tempCoords;
-}
 string Tetromino::toString() {
     string output = "";
     for (vector<int> b: coords){

@@ -23,17 +23,19 @@ class Tetromino {
         string type;
         string getType();
         void setCoords();
+        bool checkMove(int, const int);
+        const int minW = 0;
+        const int maxW = 11;
     public:
         Tetromino(string);
         Tetromino();
         vector<vector<int>> getCoords();
         void moveDown();
-        void moveLeft();
-        void moveRight();
+        bool moveLeft();
+        bool moveRight();
         void setType(string);
         string toString();
-        void rotateCW();
-        void rotateACW();
+        void rotate(int, int);
 };  
 
 #endif

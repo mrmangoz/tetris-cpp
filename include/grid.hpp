@@ -6,18 +6,18 @@
 
 class Grid {
     private:
-        int width = 12;
-        int height = 22;
+        const int width = 12;
+        const int height = 22;
         int** arr = 0;
         atomic_bool * done;
         const int maxH = height - 1;
         const int maxW = width - 1;
         const int minW = 0;
+        const int minH = 0;
         void updateDown();
         void updateLeft();
         void updateRight();
-        void updateRCW();
-        void updateRACW();
+        void updateRotate(int, int);
     public:
         Grid(atomic_bool *);
         int getWidth();
