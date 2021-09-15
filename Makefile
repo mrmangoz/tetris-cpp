@@ -16,8 +16,8 @@ $(ODIR)/%.o: $(SRCDIR)/%.cpp $(DEPS)
 	$(CC) -c -o $@ $< -I $(CCFLAGS)
 
 default: $(OBJS)
-	$(CC) -o runnable.exe $^ -I $(CCFLAGS)
-	./runnable.exe
+	$(CC) -o tetris.exe $^ -I $(CCFLAGS)
+	./tetris.exe
 
 .PHONY: clean
 

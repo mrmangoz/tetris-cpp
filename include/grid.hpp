@@ -14,17 +14,20 @@ class Grid {
         const int maxW = width - 1;
         const int minW = 0;
         const int minH = 0;
+        bool checkDown();
+        bool checkLeft();
+        bool checkRight();
+        bool checkRotate(int, int);
+    public:
+        Grid(atomic_bool *);
         void updateDown();
         void updateLeft();
         void updateRight();
         void updateRotate(int, int);
-    public:
-        Grid(atomic_bool *);
         int getWidth();
         int getHeight();
         void initArray();
         void printGrid();
-        void updateGrid(int check);
         void updateTetromino(Tetromino *);
         Tetromino * tetromino;
 };

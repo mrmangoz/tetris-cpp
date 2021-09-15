@@ -28,21 +28,21 @@ void InputThread::checkInput() {
         }
         if (input == 110) {
             // move left
-            grid->updateGrid(2);
+            grid->updateLeft();;
             grid->printGrid();
         }
         if (input == 109) {
             // move right
-            grid->updateGrid(3);
+            grid->updateRight();
             grid->printGrid();
         }
         if (input == 120) {
            // rotate clockwise
-           grid->updateGrid(4);
+           grid->updateRotate(1, -1);
            grid->printGrid();
         }
         if (input == 122) {
-           grid->updateGrid(5);
+           grid->updateRotate(-1, 1);
            grid->printGrid();
         }
     }

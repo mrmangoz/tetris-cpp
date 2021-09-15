@@ -31,8 +31,8 @@ class Tetromino {
         Tetromino();
         vector<vector<int>> getCoords();
         void moveDown();
-        bool moveLeft();
-        bool moveRight();
+        void moveLeft();
+        void moveRight();
         void setType(string);
         string toString();
         void rotate(int, int);

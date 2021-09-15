@@ -1,9 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
+
 #include <tetromino.hpp>
 #include <grid.hpp>
-#include <cstdlib>
 
 using namespace std;
 
@@ -30,10 +31,10 @@ void Grid::initArray() {
         arr[i] = new int[width];
     
         for (int j = 0; j < width; ++j) {
-            if (i == 0 || i == maxH) {
-                arr[i][j] = 1;
-            } else if (j == 0 || j == maxW) {
-                arr[i][j] = 1;
+            if (i == maxH) {
+                arr[i][j] = -1;
+            } else if (j == minW || j == maxW) {
+                arr[i][j] = -1;
             } else {
                 arr[i][j] = 0;
             }  
@@ -62,39 +63,70 @@ void Grid::printGrid() {
     cout << out;
 }
 
-void Grid::updateGrid(int check) {
-    if (check == 1) {
-        updateDown();
-    } else if (check == 2) {
-        updateLeft();
-    } else if (check == 3) {
-        updateRight();
-    } else if (check == 4) {
-        updateRotate(1, -1);
-    } else if (check == 5) {
-        updateRotate(-1, 1);
+
+bool Grid::checkDown() {
+    for (int i=0; i<4; ++i) {
+        vector<vector<int>> b = tetromino->getCoords();
+
+        if (arr[b[i][0] + 1][b[i][1]] == -1) {
+            return true;
+        }
     }
+    return false;
+}
+
+bool Grid::checkLeft() {
+    vector<vector<int>> b = tetromino->getCoords();
+
+    for (int j=0; j<4; ++j) {
+        if (arr[b[j][0]][b[j][1] - 1] == -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Grid::checkRight() {
+    vector<vector<int>> b = tetromino->getCoords();
+
+    for (int j=0; j<4; ++j) {
+        if (arr[b[j][0]][b[j][1] + 1] == -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Grid::checkRotate(int rx, int ry) {
+    
 }
 
 void Grid::updateDown() {
-    tetromino->moveDown();
+    if (checkDown()) {
+        vector<vector<int>> b = tetromino->getCoords();
+        for (int i=0; i<4; ++i) {
+            arr[b[i][0]][b[i][1]] = -1;
+        }
 
-    for (int i = 1; i >=0; --i) {
-        for (vector<int> b: tetromino->getCoords()) {
-            arr[b[0] - i][b[1]] = abs(1-i);    
+        tetromino = new Tetromino("J");
+
+    } else {
+
+        tetromino->moveDown();
+
+        for (int i = 1; i >=0; --i) {
+            for (vector<int> b: tetromino->getCoords()) {
+                arr[b[0] - i][b[1]] = abs(1-i);    
+            }
         }
     }
-
-    for (int i=0; i<4; ++i) {
-        if ((tetromino->getCoords()[i][0] + 1) == maxH) {
-            *done = true;
-        }
-    } 
 }
 
 void Grid::updateLeft(){
-    
-    if (tetromino->moveLeft()) {
+    if (checkLeft()) {
+
+        tetromino->moveLeft();
+
         for (int i = 1; i >=0; --i) {
             for (vector<int> b: tetromino->getCoords()) {
                 arr[b[0]][b[1] + i] = abs(1-i);    
@@ -104,7 +136,10 @@ void Grid::updateLeft(){
 }
 
 void Grid::updateRight() {
-    if (tetromino->moveRight()) {
+    if (checkRight()) {
+
+        tetromino->moveRight();
+
         for (int i = 1; i >=0; --i) {
             for (vector<int> b: tetromino->getCoords()) {
                 arr[b[0]][b[1] - i] = abs(1-i);    

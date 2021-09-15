@@ -33,34 +33,26 @@ void Tetromino::moveDown() {
     }
 }
 
-bool Tetromino::checkMove(int rl, const int minMax) {
-    for (int j=0; j<4; ++j) {
-        if ((getCoords()[j][1] + rl) == minMax) {
+// bool Tetromino::checkMove(int rl, const int minMax) {
+//     for (int j=0; j<4; ++j) {
+//         if ((getCoords()[j][1] + rl) == minMax) {
             
-            return false;
-        }
-    }
-    return true;
-}
+//             return false;
+//         }
+//     }
+//     return true;
+// }
 
-bool Tetromino::moveLeft() {
-    if (!checkMove(-1, minW)) {
-        return false;
-    }
+void Tetromino::moveLeft() {
     for (vector<int> &b: coords) {
         --b[1];
     }
-    return true;
 }
 
-bool Tetromino::moveRight() {
-    if (!checkMove(1, maxW)) {
-        return false;
-    }
+void Tetromino::moveRight() {
     for (vector<int> &b: coords) {
         ++b[1];
     }
-    return true;
 }
 
 void Tetromino::setType(string t) {

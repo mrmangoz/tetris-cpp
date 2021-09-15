@@ -4,12 +4,19 @@
 #include <string>
 #include <vector>
 
+#include <tetromino.hpp>
+
 using namespace std;
+
 
 class Blocks {
     private:
-        vector<int>** arr = 0;
+        int const height = 20;
+        int const width = 10;
+        vector<vector<int>> B;
     public:
+        Blocks();
+        void addBlocks(Tetromino *);
       
 };
 

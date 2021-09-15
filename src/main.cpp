@@ -37,7 +37,7 @@ int main() {
     Tetromino * tetrominoPointer;
     tetrominoPointer = &tetromino;
 
-    const int tick = 1000;
+    const int tick = 500;
     atomic_bool * boolPointer;
     boolPointer = &done;
 
@@ -55,7 +55,7 @@ int main() {
     t.detach();
 
     while (!done) {
-        grid.updateGrid(1);
+        grid.updateDown();
         grid.printGrid();
         this_thread::sleep_for(chrono::milliseconds(tick));
     }
