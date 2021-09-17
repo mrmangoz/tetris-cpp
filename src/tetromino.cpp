@@ -59,6 +59,26 @@ void Tetromino::setType(string t) {
     type = t;
 }
 
+vector<vector<int>> Tetromino::getRotate(int rx, int ry) {
+    // CW  rx =  1, ry = -1
+    // ACW rx = -1, ry =  1
+    vector<vector<int>> tempCoords = coords;
+    int h_x = tempCoords[2][1];
+    int h_y = tempCoords[2][0];
+    for (vector<int> &b: tempCoords) {
+        int x = b[1];
+        int y = b[0];
+        x -= h_x;
+        y -= h_y;
+        int swap = y;
+        y = rx * x;
+        x = ry * swap;
+        b[0] = y + h_y ;
+        b[1] = x + h_x;
+    }
+    return tempCoords;
+}
+
 void Tetromino::rotate(int rx, int ry) {
     // CW  rx =  1, ry = -1
     // ACW rx = -1, ry =  1

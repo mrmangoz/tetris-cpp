@@ -75,32 +75,6 @@ bool Grid::checkDown() {
     return false;
 }
 
-bool Grid::checkLeft() {
-    vector<vector<int>> b = tetromino->getCoords();
-
-    for (int j=0; j<4; ++j) {
-        if (arr[b[j][0]][b[j][1] - 1] == -1) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool Grid::checkRight() {
-    vector<vector<int>> b = tetromino->getCoords();
-
-    for (int j=0; j<4; ++j) {
-        if (arr[b[j][0]][b[j][1] + 1] == -1) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool Grid::checkRotate(int rx, int ry) {
-    
-}
-
 void Grid::updateDown() {
     if (checkDown()) {
         vector<vector<int>> b = tetromino->getCoords();
@@ -122,6 +96,17 @@ void Grid::updateDown() {
     }
 }
 
+bool Grid::checkLeft() {
+    vector<vector<int>> b = tetromino->getCoords();
+
+    for (int j=0; j<4; ++j) {
+        if (arr[b[j][0]][b[j][1] - 1] == -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void Grid::updateLeft(){
     if (checkLeft()) {
 
@@ -133,6 +118,17 @@ void Grid::updateLeft(){
             }
         } 
     }
+}
+
+bool Grid::checkRight() {
+    vector<vector<int>> b = tetromino->getCoords();
+
+    for (int j=0; j<4; ++j) {
+        if (arr[b[j][0]][b[j][1] + 1] == -1) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void Grid::updateRight() {
@@ -148,15 +144,27 @@ void Grid::updateRight() {
     }
 }
 
-void Grid::updateRotate(int rx, int ry) {
-    for (vector<int> b: tetromino->getCoords()) {
-        arr[b[0]][b[1]] = 0;    
+bool Grid::checkRotate(int rx, int ry) {
+    vector<vector<int>> tempCoords = tetromino->getRotate(rx, ry);
+    for (vector<int> b: tempCoords) {
+        if (arr[b[0]][b[1]] == -1) {
+            return false;
+        }
     }
+    return true;
+}
 
-    tetromino->rotate(rx, ry);
-    
-    for (vector<int> b: tetromino->getCoords()) {
-        arr[b[0]][b[1]] = 1;    
+void Grid::updateRotate(int rx, int ry) {
+    if(checkRotate(rx, ry)) {
+        for (vector<int> b: tetromino->getCoords()) {
+            arr[b[0]][b[1]] = 0;    
+        }
+
+        tetromino->rotate(rx, ry);
+        
+        for (vector<int> b: tetromino->getCoords()) {
+            arr[b[0]][b[1]] = 1;    
+        }
     }
 }
 

@@ -18,18 +18,6 @@
 
 using namespace std;
 
-
-// string createTemplate() {
-//     string header_footer = "***********\n";
-//     string body = "";
-//     for (int i = 0; i < 22; ++i) {
-//         body += "*         *\n";
-//     }
-//     string output = header_footer + body + header_footer;
-//     return output;
-    
-// }
-
 atomic_bool done(false);
 
 int main() {
@@ -37,7 +25,7 @@ int main() {
     Tetromino * tetrominoPointer;
     tetrominoPointer = &tetromino;
 
-    const int tick = 500;
+    const int TICK = 500;
     atomic_bool * boolPointer;
     boolPointer = &done;
 
@@ -57,7 +45,7 @@ int main() {
     while (!done) {
         grid.updateDown();
         grid.printGrid();
-        this_thread::sleep_for(chrono::milliseconds(tick));
+        this_thread::sleep_for(chrono::milliseconds(TICK));
     }
     cout <<"ended\n";
     system("stty echo");

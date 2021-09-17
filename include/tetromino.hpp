@@ -19,6 +19,7 @@ class Tetromino {
         {"T", {{1, 4}, {2, 3}, {2, 4}, {2, 5}}},
         {"Z", {{1, 3}, {1, 4}, {2, 4}, {2, 5}}}
         };
+        const string TYPES[7] = {"I", "S", "Z", "J", "L", "T", "O"};
         string types[7] = {"I", "S", "Z", "J", "L", "T", "O"};
         string type;
         string getType();
@@ -29,13 +30,14 @@ class Tetromino {
     public:
         Tetromino(string);
         Tetromino();
+        void setType(string);
         vector<vector<int>> getCoords();
         void moveDown();
         void moveLeft();
         void moveRight();
-        void setType(string);
-        string toString();
         void rotate(int, int);
+        vector<vector<int>> getRotate(int, int);
+        string toString();
 };  
 
 #endif
